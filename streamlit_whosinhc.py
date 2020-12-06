@@ -1,10 +1,8 @@
-pip install lxml
-pip install beautifulsoup4
 import streamlit as st
 import numpy as np
 import pandas as pd
 import requests
-from beautifulsoup4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from pandas import DataFrame
 
 """

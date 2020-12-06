@@ -61,13 +61,19 @@ df
 def load_data():
     return df
 
-st.subheader("How many people are currently detained?")
+st.subheader("How many people are currently detained for ICE?")
 #Get a bool series representing which rows satisfy the condition of True for no
 # date in released column
 how_many = df.apply(lambda x: True if x['released'] == "-" else False, axis =1)
 # Count number of True in series
 numOfRows = len(how_many[how_many == True].index)
-st.write("Number of people currently detained: ", numOfRows)
+st.write("Number of people currently detained for ICE: ", numOfRows)
+
+st.subheader("How many people are currently in HCJ?")
+how_many_total = df.apply(lambda x: True if x['released'] == "-" else False, axis =1)
+numOfRowsTotal = len(how_many_total[how_many_total == True].index)
+st.write("Number of people currently detained in HCJ: ", numOfRowsTotal)
+
 
 released = st.sidebar.multiselect('Create a table belowing showing only detainees with selected release dates:', df['released'].unique())
 

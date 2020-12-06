@@ -1,6 +1,4 @@
 import streamlit as st
-# To make things easier later, we're also importing numpy and pandas for
-# working with sample data.
 import numpy as np
 import pandas as pd
 import requests
@@ -11,7 +9,19 @@ from pandas import DataFrame
 # Hardin County Jail
 Here's our first attempt at using data to create a table:
 """
-
+def main():
+    df1 = load_data()
+    page = st.sidebar.selectbox("Choose a page", ["Homepage", "Exploration"])
+    
+    if page == "Homepage":
+        st.header("This is your data explorer.")
+        st.write("Please select a page on the left.")
+        st.write(df1)
+        
+    elif page == "Exploration":
+        st.title("Data Exploration")
+        #think of something cool here?
+     
 def scrape():
     url = 'http://209.152.119.10/vine/currentinmates/currentinmates.html'
     response = requests.get(url)
@@ -46,6 +56,10 @@ def scrape():
 
 df = pd.DataFrame(scrape())
 df
+    
+@st.cache
+def load_data():
+    return df
 
 st.subheader("How many people are currently detained?")
 #Get a bool series representing which rows satisfy the condition of True for no
@@ -60,3 +74,6 @@ released = st.sidebar.multiselect('Create a table belowing showing only detainee
 st.subheader("Use the search bar on the left to show detaines with a selected release date")
 new_df = df[(df['released'].isin(released))]
 st.write(new_df)
+
+if __name__ =="__main__":
+    main()
